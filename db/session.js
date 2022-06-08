@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize");
-const { db } = require("./db");
+const { DataTypes } = require('sequelize');
+const { db } = require('./db');
 
 const Session = db.define(
-  "Session",
+  'Session',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -15,26 +15,34 @@ const Session = db.define(
     },
     teamId: {
       type: DataTypes.INTEGER,
-      field: "team_id",
+      field: 'team_id',
     },
     creatorId: {
       type: DataTypes.INTEGER,
-      field: "user_id",
+      field: 'user_id',
     },
     setlistId: {
       type: DataTypes.INTEGER,
-      field: "setlist_id",
+      field: 'setlist_id',
     },
     createdAt: {
       type: DataTypes.DATE,
-      field: "created_at",
+      field: 'created_at',
     },
     updatedAt: {
       type: DataTypes.DATE,
-      field: "updated_at",
+      field: 'updated_at',
+    },
+    scrollTop: {
+      type: DataTypes.DECIMAL,
+      field: 'scroll_top',
+    },
+    songIndex: {
+      type: DataTypes.INTEGER,
+      field: 'song_index',
     },
   },
-  { tableName: "sessions" }
+  { tableName: 'sessions' }
 );
 
 async function find(sessionId) {

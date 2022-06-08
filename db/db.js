@@ -1,7 +1,6 @@
-const { Sequelize } = require("sequelize");
-console.log(process.env.DATABASE_URL);
+const { Sequelize } = require('sequelize');
 const db = new Sequelize(process.env.DATABASE_URL);
-const pg = require("pg");
+const pg = require('pg');
 
 pg.types.setTypeParser(20, function (value) {
   return parseInt(value);
@@ -10,9 +9,9 @@ pg.types.setTypeParser(20, function (value) {
 async function testConnection() {
   try {
     await db.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log('Connection has been established successfully.');
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error('Unable to connect to the database:', error);
   }
 }
 
