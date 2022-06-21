@@ -31,13 +31,4 @@ io.on('connection', socket => {
   socket.on('end session', endSession);
 });
 
-http.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://app.cadencechords.com');
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  next();
-});
-
 http.listen(port, async () => {});
