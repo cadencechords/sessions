@@ -17,6 +17,7 @@ const { disconnect } = require('./socket/connectionHandler')(
 );
 const { joinSession, performScroll, performChangeSong, endSession } =
   require('./socket/sessionHandler')(io, activeSessions);
+const { testConnection } = require('./db/db');
 
 io.on('connection', socket => {
   socket.on('disconnect', disconnect);
@@ -30,4 +31,6 @@ io.on('connection', socket => {
   socket.on('end session', endSession);
 });
 
-http.listen(port, async () => {});
+http.listen(port, async () => {
+  testConnection();
+});
