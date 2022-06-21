@@ -29,20 +29,29 @@ module.exports = (io, activeSessions) => {
     socket.join(sessionId);
   };
 
-  const performScroll = function ({ scrollTop, sessionId }) {
-    console.log({ scrollTop, sessionId });
+  const performScroll = async function ({ scrollTop, sessionId }) {
     const socket = this;
-    socket.to(sessionId).emit('scroll to', scrollTop);
+    let s = await Session.find(sessionId);
 
-    Session.update(sessionId, { scrollTop });
+    if (!s || s.status === 'INACTIVE') {
+      socket.emit('inactive session');
+      socket.to(sessionId).emit('host ended session');
+    } else {
+      socket.to(sessionId).emit('scroll to', scrollTop);
+      Session.update(sessionId, { scrollTop });
+    }
   };
 
-  const performChangeSong = function ({ songIndex, sessionId }) {
-    console.log({ songIndex, sessionId });
+  const performChangeSong = async function ({ songIndex, sessionId }) {
     const socket = this;
-
-    socket.to(sessionId).emit('go to song', songIndex);
-    Session.update(sessionId, { songIndex });
+    let s = await Session.find(sessionId);
+    if (!s || s.status === 'INACTIVE') {
+      socket.emit('inactive session');
+      socket.to(sessionId).emit('host ended session');
+    } else {
+      socket.to(sessionId).emit('go to song', songIndex);
+      Session.update(sessionId, { songIndex });
+    }
   };
 
   const endSession = function ({ sessionId }) {
