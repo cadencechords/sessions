@@ -5,7 +5,7 @@ app.use(cors());
 const http = require('http').Server(app);
 const io = require('socket.io')(http, {
   cors: {
-    origin: '*',
+    origin: 'https://app.cadencechords.com',
     methods: '*',
   },
 });
