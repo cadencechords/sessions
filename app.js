@@ -30,6 +30,4 @@ io.on('connection', socket => {
   socket.on('end session', endSession);
 });
 
-http.listen(port, async () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
-});
+http.listen(port, async () => {});
