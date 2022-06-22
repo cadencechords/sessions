@@ -6,7 +6,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {
   cors: {
     origin: 'https://app.cadencechords.com',
-    methods: '*',
+    methods: ['GET', 'POST'],
   },
 });
 const port = process.env.PORT || 3002;
@@ -17,7 +17,6 @@ const { disconnect } = require('./socket/connectionHandler')(
 );
 const { joinSession, performScroll, performChangeSong, endSession } =
   require('./socket/sessionHandler')(io, activeSessions);
-const { testConnection } = require('./db/db');
 
 io.on('connection', socket => {
   socket.on('disconnect', disconnect);
