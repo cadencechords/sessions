@@ -6,6 +6,7 @@ const db = new Sequelize(process.env.DATABASE_URL, {
       rejectUnauthorized: false,
     },
   },
+  logging: process.env.ENV === 'dev' ? console.log : false,
 });
 const pg = require('pg');
 
