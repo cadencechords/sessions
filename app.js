@@ -32,7 +32,7 @@ io.on('connection', socket => {
 
 instrument(io, {
   auth:
-    process.env.ENV !== 'dev'
+    process.env.ENV === 'dev'
       ? false
       : {
           type: 'basic',
