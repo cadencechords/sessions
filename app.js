@@ -30,4 +30,6 @@ io.on('connection', socket => {
   socket.on('end session', endSession);
 });
 
-http.listen(port, async () => {});
+http.listen(port, async () => {
+  console.log(`Listening on port: ${port}`);
+});
