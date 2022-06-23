@@ -9,6 +9,17 @@ const io = require('socket.io')(http, {
   },
 });
 const { instrument } = require('@socket.io/admin-ui');
+instrument(io, {
+  auth:
+    process.env.ENV === 'dev'
+      ? false
+      : {
+          type: 'basic',
+          username: process.env.SOCKETIO_ADMIN_USER,
+          password: process.env.SOCKETIO_ADMIN_PASSWORD,
+        },
+});
+
 const port = process.env.PORT || 3002;
 let activeSessions = {};
 const { disconnect } = require('./socket/connectionHandler')(
@@ -28,17 +39,6 @@ io.on('connection', socket => {
   socket.on('perform change song', performChangeSong);
 
   socket.on('end session', endSession);
-});
-
-instrument(io, {
-  auth:
-    process.env.ENV === 'dev'
-      ? false
-      : {
-          type: 'basic',
-          username: process.env.SOCKETIO_ADMIN_USER,
-          password: process.env.SOCKETIO_ADMIN_PASSWORD,
-        },
 });
 
 http.listen(port, async () => {
